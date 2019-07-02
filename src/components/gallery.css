@@ -1,0 +1,102 @@
+.whole_div {
+    padding: 10px;
+    box-shadow: 0 0 5px 3px #888;
+    border: 1px solid black;
+    content: "";
+    clear: both;
+    width: 100%;
+    display: table;
+    margin-bottom: 12px;
+    border-radius: 5px;
+}
+.container {
+    display: 'flex';
+    justify-Content: 'center';
+}
+.writer {
+    color: #484848;
+    font-size: 20px ;
+    margin: 17px;
+    font-family: 'Domine', serif;
+}
+.writer:first-letter  {
+    text-transform: uppercase;
+}
+.imag_div {
+    height: auto;
+    image-rendering: auto;
+    margin: 17px;
+    float: left;
+    object-fit: cover;
+    padding: 5px;
+    width: 29.33%;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 50%;
+    box-shadow: 1px 2px 26px 1px #345678
+}
+.imag_div img{
+    width: 100%;
+    height: 218px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.imag_div img:hover {
+    -ms-transform: scale(1.4); /* IE 9 */
+    -webkit-transform: scale(1.4); /* Safari 3-8 */
+    transform: scale(1.4); 
+    border-radius: 2px;
+}
+.inputdesign {
+    border-radius: 12px !important;
+    padding-left: 15px !important;
+    width: 90% !important;
+    box-shadow: 0 0 5px 2px #888 !important;
+    margin-bottom: 12px !important;
+    margin-top: 12px !important;
+}
+.button_style {
+    margin-bottom: 12px !important;
+}
+.box{
+    font-size: 21px;
+    display: flex;
+    -ms-flex-pack: center;
+    font-family: inherit;
+    margin-top: 30px;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+#loading-bar-spinner.spinner {
+    left: 50%;
+    margin-left: -20px;
+    top: 50%;
+    margin-top: -20px;
+    position: absolute;
+    z-index: 19 !important;
+    animation: loading-bar-spinner 400ms linear infinite;
+}
+
+#loading-bar-spinner.spinner .spinner-icon {
+    width: 40px;
+    height: 40px;
+    border:  solid 4px transparent;
+    border-top-color:  #00C8B1 !important;
+    border-left-color: #00C8B1 !important;
+    border-radius: 50%;
+}
+
+@keyframes loading-bar-spinner {
+  0%   { transform: rotate(0deg);   transform: rotate(0deg); }
+  100% { transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@media only screen 
+  and (min-width: 320px) 
+  and (max-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .imag_div {
+        width: 88%;
+    }
+}

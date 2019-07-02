@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import ReactFileReader from 'react-file-reader';
+import { Link } from "react-router-dom";
 import './upload.css';
 import axios from 'axios'
 
@@ -13,9 +15,9 @@ class upload extends Component {
             description: ''
         }
     }
-    fileSelectedHandler (e) {
+    fileSelectedHandler (files) {
         this.setState({
-            image: e.target.files[0]
+            image: files.base64
         })
     } 
     onChangedescription(e) {
@@ -25,31 +27,38 @@ class upload extends Component {
     }
     onSubmit(e) {
         e.preventDefault();
-        const detail = {
-            image: this.state.image,
-            description: this.state.description
+        if(this.state.image === ''){
+           alert('Upload the image');
         }
-        // const fd = new FormData();
-        // fd.append('images', this.state.image);
-        // fd.append('description', this.state.description);
-       console.log(detail);
-       axios.post('http://localhost:5000/upload/images', JSON.stringify(detail))
-        .then(res => {
-            console.log(res.data)
-            this.setState ({
-                image: '',
-                description: ''
-            })
-        });
+        else {
+            const detail = {
+                image: this.state.image,
+                description: this.state.description
+            }
+           
+            axios.post('http://localhost:5000/upload/images', detail)
+                .then(res => {
+                    alert('image uploaded');
+                   this.setState ({
+                    image: '',
+                    description: ''
+                })
+            });
+        }
+        
     }
     render() {
         return (
-          <div className="App">
-            <form onSubmit={this.onSubmit} method="post">
-            <input type="file" onChange={this.fileSelectedHandler} required/>
-            <input  type="text" value={this.state.description} className="form-control" onChange={this.onChangedescription} required />
-            <button type="submit">upload</button>
-            </form>
+          <div className="center">
+            <form onSubmit={this.onSubmit} method="post" className="form_class">
+            <ReactFileReader handleFiles={this.fileSelectedHandler} base64={true} multipleFiles={true}>
+            <button className='btn'>choose Image</button>
+            </ReactFileReader>
+            <br/>
+            <input  type="text" placeholder="about the image..." value={this.state.description} className="uploading_input" onChange={this.onChangedescription} required />
+            <div><button className="btn" type="submit">upload</button></div>
+            
+            </form>   
           </div>
         );
     }

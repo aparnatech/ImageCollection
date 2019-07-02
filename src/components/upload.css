@@ -1,0 +1,22 @@
+.center {
+    box-shadow: 0 0 2px 2px #888;
+    margin: auto;
+    width: 60%;
+    border: 1px solid #566;
+    height: 300px;
+    border-radius: 9px;
+    margin-top: 8%;
+    padding: 10px;
+}
+.styling {
+    height: 36px !important;
+    line-height: 35px !important;
+    margin: 12px !important;
+}
+.form_class {
+    text-align: -webkit-center;
+    margin-top: 49px;
+}
+.uploading_input{
+    width: 62% !important;
+}
