@@ -22,7 +22,6 @@ export default class Gallery extends Component {
         datas: data,
         loading: true
       })
-      console.log('loadinf',this.state.loading);
     }).catch(error => { console.log('request failed', error); });
   }
   iterateImage(img){
@@ -42,7 +41,7 @@ export default class Gallery extends Component {
       })
   }
   RandomizeFun() {
-    let sortedDate = this.state.datas.sort(function() {
+    let sortedDate = this.state.datas.sort(() => {
       return .5 - Math.random();
     });
     this.setState({
