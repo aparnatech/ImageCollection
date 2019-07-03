@@ -45,7 +45,7 @@ export default class Gallery extends Component {
       return .5 - Math.random();
     });
     this.setState({
-      datas : [...ShuffleDate]
+      datas : [...ShuffleData]
     })    
   }
   render() {
