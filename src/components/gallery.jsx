@@ -6,6 +6,7 @@ export default class Gallery extends Component {
   constructor(){
     super();
     this.iterateImage = this.iterateImage.bind(this);
+    this.DeleteImage = this.DeleteImage.bind(this);
     this.onsearchhandleChange = this.onsearchhandleChange.bind(this);
     this.RandomizeFun = this.RandomizeFun.bind(this);
     this.state = {
@@ -26,14 +27,23 @@ export default class Gallery extends Component {
   }
   iterateImage(img){
     return (
-      img.map((src)=> {
+      img.map((src,index)=> {
         return (
-          <div className="imag_div" key={src}>
+          <div className="imag_div" key={index}>
              <img src={src} alt=""/>
+             <button type="button" value={src} onClick={this.DeleteImage} className="btn">Delete</button>
           </div>
         )
       })
     )
+  }
+  DeleteImage(e) {
+    var searchItemIndex = parseInt(e.target.value);
+    console.log('remove task: %d', searchItemIndex);
+    this.setState(state => {
+        state.datas.splice(searchItemIndex, 1);
+        return { data: state.datas };
+    });
   }
   onsearchhandleChange(e) {
       this.setState({
@@ -41,17 +51,18 @@ export default class Gallery extends Component {
       })
   }
   RandomizeFun() {
-    let sortedDate = this.state.datas.sort(() => {
+    let defaultimage = this.state.datas.sort(() => {
       return .5 - Math.random();
     });
     this.setState({
-      datas : [...sortedDate]
+      datas : [...defaultimage]
     })    
   }
   render() {
     if(this.state.datas.length) {
       const {search} = this.state;
       const imageFilter = this.state.datas.filter(img => {
+        console.log(search);
       return img.description.toLowerCase().indexOf(search.toLowerCase()) !== -1
     })
       return (
