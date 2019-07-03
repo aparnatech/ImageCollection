@@ -52,7 +52,7 @@ class upload extends Component {
           <div className="center">
             <form onSubmit={this.onSubmit} method="post" className="form_class">
             <ReactFileReader handleFiles={this.fileSelectedHandler} base64={true} multipleFiles={true}>
-            <button className='btn'>choose Image</button>
+            <button type="button" className='btn'>choose Image</button>
             </ReactFileReader>
             <br/>
             <input  type="text" placeholder="about the image..." value={this.state.description} className="uploading_input" onChange={this.onChangedescription} required />
