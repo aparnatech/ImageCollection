@@ -15,7 +15,7 @@ export default class Gallery extends Component {
     };
   }
   componentDidMount() {
-    axios.get('upload/')
+    axios.get('https://qwertyuiop122.herokuapp.com/upload/')
     .then(res=> {
       const data = res.data
       this.setState({
