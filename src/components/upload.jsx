@@ -40,7 +40,7 @@ class upload extends Component {
                 description: this.state.description
             }
            
-            axios.post('https://qwertyuiop122.herokuapp.com/upload/images', detail)
+            axios.post('/upload/images', detail)
                 .then(res => {
                     alert('image uploaded');
                    this.setState ({
