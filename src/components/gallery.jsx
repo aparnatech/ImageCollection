@@ -41,11 +41,11 @@ export default class Gallery extends Component {
       })
   }
   RandomizeFun() {
-    let sortedDate = this.state.datas.sort(() => {
+    let ShuffleData = this.state.datas.sort(() => {
       return .5 - Math.random();
     });
     this.setState({
-      datas : [...sortedDate]
+      datas : [...ShuffleDate]
     })    
   }
   render() {
