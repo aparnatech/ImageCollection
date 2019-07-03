@@ -20,3 +20,10 @@
 .uploading_input{
     width: 62% !important;
 }
+.unselect_style {
+    margin: 12px;
+    background-color: coral;
+}
+.unselect_style:hover {
+    background-color: red;
+}

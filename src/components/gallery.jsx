@@ -26,9 +26,9 @@ export default class Gallery extends Component {
   }
   iterateImage(img){
     return (
-      img.map((src)=> {
+      img.map((src,index)=> {
         return (
-          <div className="imag_div" key={src}>
+          <div className="imag_div" key={index}>
              <img src={src} alt=""/>
           </div>
         )
@@ -41,11 +41,11 @@ export default class Gallery extends Component {
       })
   }
   RandomizeFun() {
-    let sortedDate = this.state.datas.sort(() => {
+    let ShuffleData = this.state.datas.sort(() => {
       return .5 - Math.random();
     });
     this.setState({
-      datas : [...sortedDate]
+      datas : [...ShuffleDate]
     })    
   }
   render() {
