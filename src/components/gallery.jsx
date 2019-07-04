@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './gallery.css';
-import { Link } from "react-router-dom";
 export default class Gallery extends Component {
   constructor(){
     super();
@@ -15,7 +14,7 @@ export default class Gallery extends Component {
     };
   }
   componentDidMount() {
-    axios.get('/upload/')
+    axios.get('https://qwertyuiop122.herokuapp.com/upload/')
     .then(res=> {
       const data = res.data
       this.setState({

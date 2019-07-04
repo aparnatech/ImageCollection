@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactFileReader from 'react-file-reader';
-import { Link } from "react-router-dom";
 import './upload.css';
 import axios from 'axios'
 
@@ -40,7 +39,7 @@ class upload extends Component {
                 description: this.state.description
             }
            
-            axios.post('/upload/images', detail)
+            axios.post('https://qwertyuiop122.herokuapp.com/upload/images', detail)
                 .then(res => {
                     alert('image uploaded');
                    this.setState ({

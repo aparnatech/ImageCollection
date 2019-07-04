@@ -24,6 +24,7 @@ connection.once('open', () => {
 }
 );
 app.use('/upload', uploadRouter);
+
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
