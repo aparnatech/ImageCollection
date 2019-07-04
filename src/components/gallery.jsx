@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './gallery.css';
 export default class Gallery extends Component {
-  constructor(){
+  constructor() {
     super();
     this.iterateImage = this.iterateImage.bind(this);
     this.onsearchhandleChange = this.onsearchhandleChange.bind(this);
@@ -23,7 +23,7 @@ export default class Gallery extends Component {
       })
     }).catch(error => { console.log('request failed', error); });
   }
-  iterateImage(img){
+  iterateImage(img) {
     return (
       img.map((src,index)=> {
         return (
@@ -68,7 +68,7 @@ export default class Gallery extends Component {
           })}
         </div> 
       );
-    } else if(this.state.datas.length === 0 && this.state.loading !== false){
+    } else if(this.state.datas.length === 0 && this.state.loading !== false) {
       return (
         <div className="box">
           Oops Gallery is empty...
