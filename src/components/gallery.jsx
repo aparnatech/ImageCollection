@@ -60,7 +60,7 @@ export default class Gallery extends Component {
              { imageFilter.map((link) => {
                 return(
                   <div className="whole_div" key={link._id}>
-                  <div className="writer">{link.description}</div>
+                  <div className="writer">{link.description}({link.image.length})</div>
                   <hr/>
                     {this.iterateImage(link.image)}
                   </div>
