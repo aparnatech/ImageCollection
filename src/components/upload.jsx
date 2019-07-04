@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactFileReader from 'react-file-reader';
-import { Link } from "react-router-dom";
 import './upload.css';
 import axios from 'axios'
 
