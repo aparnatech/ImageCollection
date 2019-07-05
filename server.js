@@ -6,7 +6,6 @@ const uploadRouter = require('./routes/upload');
 const path = require("path")
 require('dotenv').config();
 const app = express();
-const port = process.env.PORT || 5000;
 app.use(
     bodyParser.urlencoded({
       extended: false
@@ -31,6 +30,4 @@ if(process.env.PORT === 'production') {
   });
 }
 
-app.listen(port, ()=> {
-    console.log(`server is running on port  : ${port}`);
-});
+server.listen(process.env.PORT || 8000);
