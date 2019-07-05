@@ -3,7 +3,6 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const uploadRouter = require('./routes/upload');
-const path = require("path")
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
@@ -25,9 +24,9 @@ connection.once('open', () => {
 );
 app.use('/upload', uploadRouter);
 if(process.env.PORT === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
+  app.use(express.static((__dirname, 'client/build'));
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(express.static((__dirname, 'client', 'build', 'index.html'));
   });
 }
 
