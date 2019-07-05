@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import axios from '../../client/node_modules/axios';
 import './gallery.css';
+const axios = require('axios');
 export default class Gallery extends Component {
   constructor() {
     super();
