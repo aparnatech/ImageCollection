@@ -39,7 +39,7 @@ class upload extends Component {
                 description: this.state.description
             }
            
-            axios.post('http://localhost:5000/upload/images', detail)
+            axios.post('upload/images', detail)
                 .then(res => {
                     alert('image uploaded');
                    this.setState ({
