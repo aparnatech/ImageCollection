@@ -24,9 +24,9 @@ connection.once('open', () => {
 );
 app.use('/upload', uploadRouter);
 if(process.env.PORT === 'production') {
-  app.use(express.static((__dirname, 'client/build'));
+  app.use(express.static(__dirname, 'client/build'));
   app.get('*', (req, res) => {
-    res.sendFile(express.static((__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(express.static(__dirname, 'client', 'build', 'index.html'));
   });
 }
 
