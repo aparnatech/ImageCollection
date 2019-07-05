@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const uploadRouter = require('./backend/routes/upload');
+const uploadRouter = require('./routes/upload');
 const path = require("path")
 require('dotenv').config();
 const app = express();
