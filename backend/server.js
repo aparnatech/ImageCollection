@@ -14,7 +14,7 @@ app.use(
   );
 app.use(bodyParser.json({limit: '100mb'}));
 app.use(cors());
-app.use(express.static(path.join(__dirname, "public")))
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri,{ useNewUrlParser: true, useCreateIndex: true});
@@ -26,7 +26,7 @@ connection.once('open', () => {
 app.use('/upload', uploadRouter);
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/index.html"));
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 app.listen(port, ()=> {
     console.log(`server is running on port  : ${port}`);
