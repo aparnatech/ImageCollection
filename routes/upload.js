@@ -1,12 +1,12 @@
 const router = require('express').Router();
 const User = require('../models/gallery');
 
-router.get('/getcall',(req, res) => {
+router.get('/',(req, res) => {
   User.find()
     .then(users => res.json(users))
     .catch(err => res.status(400).json('Error: ' + err));
 });
-router.post('images',(req, res) => {
+router.post('/images',(req, res) => {
   const img = req.body.image;
   const description = req.body.description;
   const date = req.body.date;
