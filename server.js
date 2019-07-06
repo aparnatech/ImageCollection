@@ -3,6 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const uploadRouter = require('./routes/upload');
+const db = require("./config/keys").ATLAS_URI;
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
@@ -16,7 +17,7 @@ app.use(cors());
 
 app.use(express.json());
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri,{ useNewUrlParser: true, useCreateIndex: true});
+mongoose.connect(db,{ useNewUrlParser: true, useCreateIndex: true});
 const connection = mongoose.connection;
 connection.once('open', () => {
     console.log("Mongodb connected");
