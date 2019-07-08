@@ -100,3 +100,18 @@
         width: 88%;
     }
 }
+.inputdesignModel {
+    border-radius: 12px !important;
+    padding-left: 15px !important;
+    width: 90% !important;
+    box-shadow: 0 0 5px 2px #888 !important;
+    margin-bottom: 12px !important;
+    margin-top: 12px !important;
+}
+.edit{
+    padding: 12px;
+    font-size: 22px;
+}
+.centermodel {
+    text-align: center;
+}

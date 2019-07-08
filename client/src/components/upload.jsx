@@ -30,6 +30,7 @@ class upload extends Component {
     
     onSubmit(e) {
         e.preventDefault();
+        alert('upload clicked');
         if(this.state.image === ''){
            alert('Upload the image');
         }
