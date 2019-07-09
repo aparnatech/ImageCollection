@@ -3,27 +3,34 @@ import './gallery.css';
 const axios = require('axios');
 import Modal from 'react-awesome-modal';
 export default class Gallery extends Component {
+  _isMounted = false;
   constructor() {
     super();
     this.iterateImage = this.iterateImage.bind(this);
     this.onsearchhandleChange = this.onsearchhandleChange.bind(this);
     this.RandomizeFun = this.RandomizeFun.bind(this);
     this.DeleteImageSingle = this.DeleteImageSingle.bind(this);
+    this.input = this.input.bind(this);
+    // this.DeleteImageSinglemul = this.DeleteImageSinglemul.bind(this);
     this.update = this.update.bind(this);
     this.state = {
       datas: [],
       search: '',
-      loading: false
+      loading: false,
+      value: ''
     };
   }
   componentDidMount() {
+    this._isMounted = true;
     axios.get('http://localhost:5000/upload/')
     .then(res=> {
       const data = res.data
-      this.setState({
+      if (this._isMounted) { this.setState({
         datas: data,
         loading: true
-      })
+      }) }
+
+     
     }).catch(error => { console.log('request failed', error); });
   }
   
@@ -33,10 +40,15 @@ export default class Gallery extends Component {
         return (
           <div className="imag_div" key={index}>
              <img src={src} alt=""/>
-             {/* <button className="btn button_style" type="submit" onClick={e => this.DeleteImageSingle(e, src)}>Delete</button> */}
+             <button className="btn button_style" type="submit" onClick={e => this.DeleteImageSinglemul(e, img)}>Delete</button>
           </div>
         )
       })
+    )
+  }
+  input(link) {
+    return (
+      <input type="text" className="inputdesignModel"  onChange={e => this.update(e,link)}  placeholder="Edit description here..." />
     )
   }
   open(e,id) {
@@ -45,44 +57,58 @@ export default class Gallery extends Component {
     this.update(e,id);
   }
   update(event,data) {
-    var a=[];
     console.log('dddd', data)
     event.preventDefault();
     console.log('id',event.target.value );
     const search = event.target.value;
+    
     // console.log('id88', id);
     if(event.target.value !== '') {
       const description = {
-        description: search,
-        images: data.images,
-        date: data.date
+        description: search
       }
+      
+      console.log(this.state.datas,'poo');
       axios.post(`http://localhost:5000/upload/updating/${data._id}` , description)
-      .then(res=>{
-        // console.log('response', data1);
-        const data = res
-        console.log(data,'data')
-        a.push(data);
-        // console.log('data', a);
-        // console.log('g', g);
-        this.setState({
-          datas: a.filter(el => el)
-        });
+      .then(res=> {
+        console.log(res,'responce');
+        this.componentDidMount();
+        // alert('updated');
 
-        console.log('updating', this.state.datas);
-        alert('updated');
-        a = [];
       }).catch(error => { console.log('request failed', error); });
     }
+
   }
+  // DeleteImageSinglemul(event,src) { 
+  //   console.log('event', event.target.value);
+  //   console.log('eved', src);
+  //   const l = this.state.datas.length;
+  //   console.log('this.state.datas.length;', this.state.datas);
+  //   const kl = [];
+  //   // console.log(l);
+  //   console.log();
+  //   for(let i = 0; i < l; i++) {
+  //     let childArray = this.state.datas[i].image;
+  //     for(let j = 0; j < childArray.length; j++) {
+  //       if(childArray[j] !== src) {
+  //         console.log(childArray[j]);
+  //         kl.push(childArray[j]);
+  //       }
+  //     }
+  //   }
+  //   console.log('data' , kl);
+  //   console.log(this.state.datas,'after');
+  // }
   DeleteImageSingle(event, id) {
     event.preventDefault();
     axios.delete(`http://localhost:5000/upload/delete/${id}`)
     .then(res=> {
-      this.setState({
-        datas: this.state.datas.filter(el=>el._id !== id)
-      })
-      alert('deleted');
+      if (this._isMounted) {
+        this.setState({
+          datas: this.state.datas.filter(el=>el._id !== id)
+        })
+        alert('deleted');
+      }
     }).catch(error => { console.log('request failed', error); });
   }
   onsearchhandleChange(e) {
@@ -103,15 +129,14 @@ export default class Gallery extends Component {
         visible : true
     });
   }
-
   closeModal() {
     this.setState({
         visible : false
     });
   }
-  // edit(id) {
-  //   this.update(event= this.event, id=id);
-  // }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
   render() {
     if(this.state.datas.length) {
       const {search} = this.state;
@@ -137,9 +162,8 @@ export default class Gallery extends Component {
                     onClickAway={() => this.closeModal()}>
                     <div>
                        <div className="edit">Edit here...</div>
-                       <div className="centermodel"> <input type="text" className="inputdesignModel" onBlur={e => this.update(e,link)}  placeholder="Edit description here..." /></div>
+                       <div className="centermodel"> {this.input(link)}</div>
                        <div className="centermodel"> <a href="javascript:void(0);" onClick={() => this.closeModal()}>Close</a></div>
-                       {/* <div className="centermodel"> <a href="javascript:void(0);" onClick={() => this.edit(link._id)}>update</a></div> */}
                     </div>
                 </Modal>
                   </div>

@@ -17,6 +17,7 @@ class upload extends Component {
     }
     
     fileSelectedHandler (files) {
+        console.log('files', files);
         this.setState({
             image: files.base64
         })

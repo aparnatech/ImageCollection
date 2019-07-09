@@ -29,9 +29,9 @@ router.post('/updating/:id', function (req, res) {
       if( description == null) {
         res.send('cannot be null');
       } else {
-          User.findOneAndUpdate(req.params.id, {$set: {description}}, function (err, descrip) {
+          User.findOneAndUpdate(req.params.id,{$set: {description}}, function (err, descrip) {
             if (err) return console.log(err,'errr')
-                res.send(users);
+                res.send(descrip);
           });
         }
       }
