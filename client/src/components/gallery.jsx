@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './gallery.css';
 const axios = require('axios');
-const moment = require('moment');
-var searched1;
+// const moment = require('moment');
 
 export default class Gallery extends Component {
   constructor() {
@@ -11,12 +10,12 @@ export default class Gallery extends Component {
     this.onsearchhandleChange = this.onsearchhandleChange.bind(this);
     this.RandomizeFun = this.RandomizeFun.bind(this);
     this.DateFilter = this.DateFilter.bind(this);
-    this.Description =  this.Descriiption.bind(this);
- 
+    this.Description =  this.Description.bind(this);
     this.state = {
       datas: [],
       search: '',
-      loading: false
+      loading: false,
+      flag: true,
     };
   }
   componentDidMount() {
@@ -25,7 +24,8 @@ export default class Gallery extends Component {
       const data = res.data
       this.setState({
         datas: data,
-        loading: true
+        loading: true,
+        flag: true,
       })
     }).catch(error => { console.log('request failed', error); });
   }
@@ -40,26 +40,33 @@ export default class Gallery extends Component {
       })
     )
   }
-  DateFilter() {
-    // 
-    if (moment(this.state.search, "DD/MM/YYYY", true).isValid()) {
-      var initial = this.state.search.split(/\//).reverse().join('-');
-      console.log(initial);
-      searched1 =  this.state.datas.filter(img => {
-          var date1 = new Date(img.date);
-          return date1.toISOString().substring(0, 10) === initial;
-        });
-      
-  }
+  DateFilter(e) {
+    e.preventDefault();
+    this.setState({
+      flag: false
+    })
+    // if (moment(this.state.search, "DD/MM/YYYY", true).isValid()) {
+    //   var initial = this.state.search.split(/\//).reverse().join('-');
+    //   console.log(initial);
+    //   searched1 =  this.state.datas.filter(img => {
+    //       var date1 = new Date(img.date);
+    //       return date1.toISOString().substring(0, 10) === initial;
+    //     });
+    //     console.log('date@@@@@@@@', searched1);
+    //     // this.setState({
+    //     //   datas: [...searched1]
+    //     }
+    //     console.log('st*******', this.state.datas);
+  
 }
-  Descriiption() {
-    if((/^[a-zA-Z]+$/.test(this.state.search))) {
-       const searched  =  this.state.datas.filter(img => {
-        return img.description.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
-      })
-  }
+  Description(e) {
+    e.preventDefault();
+    this.setState({
+      flag: true
+    })
 }
   onsearchhandleChange(e) {
+    e.preventDefault();
       this.setState({
         search: e.target.value
       })
@@ -69,25 +76,35 @@ export default class Gallery extends Component {
       return .5 - Math.random();
     });
     this.setState({
-      datas : [...ShuffleData]
+      datas : [...ShuffleData],
+      flag: true
     })    
   }
- 
   render() {
     if(this.state.datas.length) {
       var imageFilter;
       const {search} = this.state;
-      console.log(search,'render');
-     
-     imageFilter = this.state.datas.filter(img => {
-          return img.description.toLowerCase().indexOf(search.toLowerCase()) !== -1
-    })
+    console.log('this.state.flag', this.state.flag);
+      if(this.state.flag === false) {
+        var initial = this.state.search.split(/\//).reverse().join('-');
+        const searched1 =  this.state.datas.filter(img => {
+            var date1 = new Date(img.date);
+            console.log(date1.toISOString().substring(0, 10) === initial);
+            return date1.toISOString().substring(0, 10) === initial;
+        });
+          imageFilter = [...searched1]
+      } if(this.state.flag !== false) {
+        const searched  =  this.state.datas.filter(img => {
+          return img.description.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+        })
+        imageFilter = [...searched]
+      }
       return (
         <div className="container">
            <input type="text" className="inputdesign"  onBlur={this.onsearchhandleChange}  placeholder="Search Image with description..." />
-           <button className="btn button_style" onClick={this.RandomizeFun}>List images</button>
-           <button className="btn button_style" onClick={this.DateFilter}>Date</button>
-           <button className="btn button_style" onClick={this.Description}>Description</button>
+           <button className="btn button_style" onClick={e=>this.RandomizeFun(e)}>List images</button>
+           <button className="btn button_style" onClick={e=>this.DateFilter(e)}>Date</button>
+           <button className="btn button_style" onClick={e=>this.Description(e)}>Description</button>
              { imageFilter.map((link) => {
                 return(
                   <div className="whole_div" key={link._id}>
