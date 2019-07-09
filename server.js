@@ -13,7 +13,6 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(cors());
 
 app.use(express.json());
-const uri = process.env.ATLAS_URI;
 mongoose.connect(db,{ useNewUrlParser: true, useCreateIndex: true});
 const connection = mongoose.connection;
 connection.once('open', () => {

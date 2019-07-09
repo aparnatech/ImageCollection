@@ -46,9 +46,10 @@ export default class Gallery extends Component {
       })
     )
   }
+  
   input(link) {
     return (
-      <input type="text" className="inputdesignModel"  onChange={e => this.update(e,link)}  placeholder="Edit description here..." />
+      <input type="text" className="inputdesignModel" value={this.state.value} onChange={e => this.update(e,link)}  placeholder="Edit description here..." />
     )
   }
   open(e,id) {
@@ -57,18 +58,14 @@ export default class Gallery extends Component {
     this.update(e,id);
   }
   update(event,data) {
-    console.log('dddd', data)
+  console.log('data', this.state.value);
     event.preventDefault();
-    console.log('id',event.target.value );
     const search = event.target.value;
-    
-    // console.log('id88', id);
-    if(event.target.value !== '') {
+    if(search !== '') {
       const description = {
         description: search
       }
-      
-      console.log(this.state.datas,'poo');
+      console.log(description,'description');
       axios.post(`http://localhost:5000/upload/updating/${data._id}` , description)
       .then(res=> {
         console.log(res,'responce');
@@ -77,7 +74,7 @@ export default class Gallery extends Component {
 
       }).catch(error => { console.log('request failed', error); });
     }
-
+    this.setState({value: event.target.value});
   }
   // DeleteImageSinglemul(event,src) { 
   //   console.log('event', event.target.value);
@@ -130,9 +127,15 @@ export default class Gallery extends Component {
     });
   }
   closeModal() {
-    this.setState({
-        visible : false
+    if (this._isMounted) {
+      this.setState({
+        visible : false,
+        value:''
     });
+    alert('updated');
+    }
+    
+
   }
   componentWillUnmount() {
     this._isMounted = false;

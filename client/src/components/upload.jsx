@@ -70,7 +70,7 @@ class upload extends Component {
             </ReactFileReader>
             <button className="btn unselect_style" type="button" onClick={this.cleartheImage}>unselect Image</button>
             <br/>
-            <input  type="text" placeholder="about the image..." value={this.state.description} className="uploading_input" onChange={this.onChangedescription} required />
+            <input  type="text" placeholder="about the image..." value={this.state.description} className="uploading_input" onChange={this.onChangedescription} required/>
             <div><button className="waves-effect waves-light btn-small" type="submit"><i className="material-icons left">cloud</i>upload</button></div>  
             </form>   
           </div>
