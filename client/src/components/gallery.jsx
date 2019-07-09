@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import './gallery.css';
 const axios = require('axios');
+const moment = require('moment');
+var searched1;
+
 export default class Gallery extends Component {
   constructor() {
     super();
     this.iterateImage = this.iterateImage.bind(this);
     this.onsearchhandleChange = this.onsearchhandleChange.bind(this);
     this.RandomizeFun = this.RandomizeFun.bind(this);
+    this.DateFilter = this.DateFilter.bind(this);
+    this.Description =  this.Descriiption.bind(this);
+ 
     this.state = {
       datas: [],
       search: '',
@@ -34,6 +40,25 @@ export default class Gallery extends Component {
       })
     )
   }
+  DateFilter() {
+    // 
+    if (moment(this.state.search, "DD/MM/YYYY", true).isValid()) {
+      var initial = this.state.search.split(/\//).reverse().join('-');
+      console.log(initial);
+      searched1 =  this.state.datas.filter(img => {
+          var date1 = new Date(img.date);
+          return date1.toISOString().substring(0, 10) === initial;
+        });
+      
+  }
+}
+  Descriiption() {
+    if((/^[a-zA-Z]+$/.test(this.state.search))) {
+       const searched  =  this.state.datas.filter(img => {
+        return img.description.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+      })
+  }
+}
   onsearchhandleChange(e) {
       this.setState({
         search: e.target.value
@@ -47,16 +72,22 @@ export default class Gallery extends Component {
       datas : [...ShuffleData]
     })    
   }
+ 
   render() {
     if(this.state.datas.length) {
+      var imageFilter;
       const {search} = this.state;
-      const imageFilter = this.state.datas.filter(img => {
-      return img.description.toLowerCase().indexOf(search.toLowerCase()) !== -1
+      console.log(search,'render');
+     
+     imageFilter = this.state.datas.filter(img => {
+          return img.description.toLowerCase().indexOf(search.toLowerCase()) !== -1
     })
       return (
         <div className="container">
-           <input type="text" className="inputdesign"  onChange={this.onsearchhandleChange}  placeholder="Search Image with description..." />
-           <button className="btn button_style" onClick={this.RandomizeFun}>Randomize</button>
+           <input type="text" className="inputdesign"  onBlur={this.onsearchhandleChange}  placeholder="Search Image with description..." />
+           <button className="btn button_style" onClick={this.RandomizeFun}>List images</button>
+           <button className="btn button_style" onClick={this.DateFilter}>Date</button>
+           <button className="btn button_style" onClick={this.Description}>Description</button>
              { imageFilter.map((link) => {
                 return(
                   <div className="whole_div" key={link._id}>
