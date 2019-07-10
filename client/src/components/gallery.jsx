@@ -16,6 +16,7 @@ export default class Gallery extends Component {
     this.input = this.input.bind(this);
     this.update = this.update.bind(this);
     this.DeleteImageSingle = this.DeleteImageSingle.bind(this);
+    this.UpdateModel = this.UpdateModel.bind(this);
 
     this.state = {
       datas: [],
@@ -77,7 +78,7 @@ update(event,data) {
       console.log(description,'description');
       axios.post(`http://localhost:5000/upload/updating/${data._id}` , description)
       .then(res=> {
-        console.log(res,'responce');
+        console.log(res,'response');
         this.componentDidMount();
         // alert('updated');
 
@@ -86,13 +87,24 @@ update(event,data) {
     this.setState({value: event.target.value});
   }
 
-closeModal() {
+closeModal(e) {
+  e.preventDefault()
   if (this._isMounted) {
+      this.setState({
+        visible : false,
+    });
+  }
+}
+UpdateModel(e) {
+  e.preventDefault()
+  if(this.state.value !== '') { 
     this.setState({
       visible : false,
       value:''
   });
   alert('updated');
+} else {
+    alert('input cannot be empty');
   }
 }
 
@@ -193,7 +205,8 @@ RandomizeFun() {
                     <div>
                        <div className="edit">Edit here...</div>
                        <div className="centermodel"> {this.input(link)}</div>
-                       <div className="centermodel"> <a href="javascript:void(0);" onClick={() => this.closeModal()}>Close</a></div>
+                       <div className="centermodel"> <a href="" onClick={e => this.closeModal(e)}>Close</a></div>
+                       <div className="centermodel"> <a href="" onClick={e => this.UpdateModel(e)}>Update</a></div>
                     </div>
                 </Modal>
                   </div>
