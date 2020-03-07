@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
+const gallerySchema = new Schema({
   image: { 
       type: Schema.Types.Mixed, 
   },
@@ -16,6 +16,6 @@ const userSchema = new Schema({
   }
 });
 
-const User = mongoose.model('User', userSchema);
+const Gallery = mongoose.model('Gallery', gallerySchema);
 
-module.exports = User;
+module.exports = Gallery;

@@ -3,6 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const uploadRouter = require('./routes/upload');
+const userRoutes = require('./routes/user');
 const db = require("./config/keys").ATLAS_URI;
 require('dotenv').config();
 const app = express();
@@ -30,6 +31,7 @@ if(process.env.PORT === 'production') {
     res.sendFile(express.static(__dirname, 'client', 'build', 'index.html'));
   });
 }
+app.use("/user", userRoutes)
 
 app.listen(port, ()=> {
     console.log(`server is running on port  : ${port}`);

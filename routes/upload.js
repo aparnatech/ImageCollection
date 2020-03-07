@@ -1,9 +1,9 @@
 const router = require('express').Router();
-const User = require('../models/gallery');
+const Gallery = require('../models/gallery');
 const mongoose = require('mongoose');
 router.get('/',(req, res) => {
-  User.find()
-    .then(users => res.json(users))
+  Gallery.find()
+    .then(Gallery => res.json(Gallery))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -11,14 +11,14 @@ router.post('/images',(req, res) => {
   const img = req.body.image;
   const description = req.body.description;
   const date = req.body.date;
-  const newUser = new User({image: img, description, date});
-     newUser.save()
-     .then(() => res.json('User added!'))
+  const newGallery = new Gallery({image: img, description, date});
+     newGallery.save()
+     .then(() => res.json('Gallery added!'))
      .catch(err => res.status(400).json(err));
 });
 
 router.delete('/delete/:id', function (req, res) {
-  User.findByIdAndDelete(req.params.id).then((users) => res.json(users)
+  Gallery.findByIdAndDelete(req.params.id).then((gallery) => res.json(gallery)
 )});
 mongoose.set('useFindAndModify', false);
 router.post('/updating/:id', function (req, res) {
@@ -29,9 +29,9 @@ router.post('/updating/:id', function (req, res) {
       if( description == null) {
         res.send('cannot be null');
       } else {
-          User.findOneAndUpdate(req.params.id,{$set: {description}}, function (err, descrip) {
+          User.findOneAndUpdate(req.params.id,{$set: {description}}, function (err, description) {
             if (err) return console.log(err,'errr')
-                res.send(descrip);
+                res.send(description);
           });
         }
       }
